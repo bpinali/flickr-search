@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="">
+<html lang="en" ng-app="flickrSearch">
 
 <head>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type="text/css">
@@ -10,7 +10,7 @@
     <title>Flickr Search</title>
 </head>
 
-<body>
+<body ng-controller="flickrController">
     <main class="col-md-8 col-md-offset-2 text-center">
         <header>
             <h1>Flickr Search</h1>
@@ -18,26 +18,26 @@
         <section class="search">
             <form>
                 <div class="form-group form-inline">
-                    <input type="text" placeholder="Search for...">
-                    <button class="btn btn-default">Search</button>
+                    <input type="text" placeholder="Search for..." ng-model="searchTag">
+                    <button class="btn btn-default" ng-click="tagSearch()">Search</button>
                 </div>
             </form>
             <p>Searching for photos tagged with cats</p>
         </section>
         <section class="results container-fluid">
             <ul class="list-unstyled col-xs-12">
-              <li class="col-md-4"><a href=""><img src="images/cat.jpg" alt=""></a></li>
-              <li class="col-md-4"><a href=""><img src="images/cat.jpg" alt=""></a></li>
-              <li class="col-md-4"><a href=""><img src="images/cat.jpg" alt=""></a></li>
-              <li class="col-md-4"><a href=""><img src="images/cat.jpg" alt=""></a></li>
-              <li class="col-md-4"><a href=""><img src="images/cat.jpg" alt=""></a></li>
-              <li class="col-md-4"><a href=""><img src="images/cat.jpg" alt=""></a></li>
+                <li ng-repeat="picture in results.photos.photo" class="col-md-4">
+                    <a href="https://farm{{ picture.farm }}.staticflickr.com/{{ picture.server }}/{{ picture.id }}_{{ picture.secret }}_b.jpg" target="_blank">
+  <img ng-src="https://farm{{ picture.farm }}.staticflickr.com/{{ picture.server }}/{{ picture.id }}_{{ picture.secret }}_b.jpg" />
+                    </a>
+                </li>
             </ul>
         </section>
         <footer>
 
         </footer>
     </main>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.js"></script>
     <script type="text/javascript" src="https://code.angularjs.org/1.5.5/angular-animate.js"></script>

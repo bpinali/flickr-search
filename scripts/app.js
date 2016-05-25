@@ -1,7 +1,10 @@
 var app = angular.module('flickrSearch', []);
 app.controller('flickrController', function($scope, $http) {
     $scope.results = [];
+    $scope.isSearching = false;
+    $scope.searchComplete = false;
     $scope.tagSearch = function(text) {
+        $scope.isSearching = true;
         //console.log("I'm working here!");
         //console.log($scope.searchTag)
         var url = "https://api.flickr.com/services/rest";
@@ -19,6 +22,8 @@ app.controller('flickrController', function($scope, $http) {
             params: request
         }).success(function(data) {
             $scope.results = data;
+            $scope.isSearching = false;
+            $scope.searchComplete = true;
             //console.log(data);
         }).error(function(error) {
             //console.error(error);
